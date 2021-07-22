@@ -22,7 +22,6 @@ func main() {
 	// Configure
 	port := utils.GetPort()
 	
-
 	// Web Socket
 	server := socketio.NewServer(nil)
 	defer server.Close()

@@ -13,7 +13,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      socket: io(WEB_SOCKET_HOST, { transports: ["websocket"] }),
+      socket: io(WEB_SOCKET_HOST, { transports: ["websocket", "polling"] }),
       canvas: null,
       ctx: null,
       drawing: false,
@@ -91,6 +91,7 @@ class App extends Component {
   };
 
   paintInit = () => {
+    console.log("paintInit", this.state.socket);
     this.state.socket.emit("paintInit");
   };
 

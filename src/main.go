@@ -33,23 +33,23 @@ func main() {
 	})
 
 	server.OnEvent("/", "drawInit", func(s socketio.Conn) {
-		s.Emit("drawInit", "test")
 		fmt.Println("drawInit")
+		s.Emit("drawInit", "test")
+	})
+
+	// 캔버스 초기화
+	server.OnEvent("/", "paintInit", func(s socketio.Conn) { 
+		// paint = []; 
+		// io.emit('paintInit', paint);
+		fmt.Println("paintInit")
 	})
 
 	// 실시간 랜더링
 	server.OnEvent("/", "draw", func(s socketio.Conn, msg string) {
 		// paint.push(data)
 		// s.Emit("draw", data)
-		fmt.Println(msg)
-		fmt.Println("11")
+		fmt.Println("draw", msg)
 	});
-
-	// 캔버스 초기화
-	// server.OnEvent('paintInit', (data) => { 
-	// 	paint = []; 
-	// 	io.emit('paintInit', paint);
-	// });
 
 	server.OnError("/", func(s socketio.Conn, err error) {
 		log.Println("error:", err)

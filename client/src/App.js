@@ -129,7 +129,7 @@ class App extends Component {
     // 클라이언트 랜더링
     // picture.push(drawingLocation);
 
-    socket.emit("draw", drawingLocation);
+    socket.emit("draw", JSON.stringify(drawingLocation));
     console.log("draw", drawingLocation);
   };
 

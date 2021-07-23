@@ -42,40 +42,7 @@ class App extends Component {
 
   componentDidMount() {
     this.init();
-    setTimeout(this.test, 1000);
   }
-
-  test = () => {
-    document.addEventListener("keydown", (e) => {
-      if (e.which == 32) {
-      }
-    });
-
-    setInterval(() => {
-      const spaceKey = {
-        altKey: false,
-        bubbles: true,
-        cancelBubble: false,
-        cancelable: true,
-        charCode: 0,
-        code: "Space",
-        composed: true,
-        ctrlKey: false,
-        currentTarget: null,
-        defaultPrevented: false,
-        detail: 0,
-        eventPhase: 0,
-        isComposing: false,
-        isTrusted: true,
-        key: " ",
-        keyCode: 32,
-        type: "keydown",
-        which: 32,
-      };
-
-      document.dispatchEvent(new KeyboardEvent("keydown", spaceKey));
-    }, 1000);
-  };
 
   init = async () => {
     const canvas = this.refs.canvas;
@@ -92,7 +59,6 @@ class App extends Component {
   };
 
   paintInit = () => {
-    console.log("paintInit", this.state.socket);
     this.state.socket.emit("paintInit");
   };
 
@@ -131,7 +97,6 @@ class App extends Component {
     // picture.push(drawingLocation);
 
     socket.emit("draw", JSON.stringify(drawingLocation));
-    console.log("draw", drawingLocation);
   };
 
   onDraw = () => {

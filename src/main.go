@@ -18,7 +18,7 @@ import (
 	socketio "github.com/googollee/go-socket.io"
 )
 
-const DEFAULT_PORT int = 8000;
+const DEFAULT_PORT int = 3000;
 
 func main() {
 	// Configure

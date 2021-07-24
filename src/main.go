@@ -2,13 +2,14 @@ package main
 
 import (
 	// built-in packages
-	"encoding/json"
 	"fmt"
 	"log"
 	"strconv"
 	"strings"
 
 	// local packages
+	"go-catchmind/src/models"
+	"go-catchmind/src/routes"
 	"go-catchmind/src/utils"
 
 	// external packages
@@ -27,42 +28,12 @@ func main() {
 	server := socketio.NewServer(nil)
 	defer server.Close()
 
-	// App
-	canvas := [][]int{}
+	// Regist Routes
+	// canvas
+	canvasState := models.CanvasState{[][]int{}}
+	routes.RegistCanvasRoutes(server, &canvasState)
 
-	server.OnConnect("/", func(s socketio.Conn) error {
-		fmt.Println(s)
-		return nil
-	})
-
-	server.OnEvent("/", "drawInit", func(s socketio.Conn) {
-		s.Emit("paintInit", canvas);
-	})
-
-	// 캔버스 초기화
-	server.OnEvent("/", "paintInit", func(s socketio.Conn) { 
-		canvas = [][]int{}
-		s.Emit("paintInit", canvas);
-	})
-
-	// 실시간 랜더링
-	server.OnEvent("/", "draw", func(s socketio.Conn, msg string) {
-		// append canvas
-		var data []int
-		json.Unmarshal([]byte(msg), &data)
-		canvas = append(canvas, data)
-		
-		s.Emit("draw", data)
-	});
-
-	server.OnError("/", func(s socketio.Conn, err error) {
-		log.Println("error:", err)
-	})
-
-	server.OnDisconnect("/", func(s socketio.Conn, reason string) {
-		log.Println("disconnect", reason)
-	})
-
+	// Run Websocket
 	go func() {
 		if err := server.Serve(); err != nil {
 			fmt.Println("HTTP ERROR: ", err)

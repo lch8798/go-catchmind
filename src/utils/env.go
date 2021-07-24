@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-const DEFAULT_PORT int = 8000
+const DEFAULT_PORT int = 3000
 
 func GetPort() (int) {
 	// set port from env
